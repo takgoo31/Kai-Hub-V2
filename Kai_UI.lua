@@ -13,8 +13,13 @@ local Window = Fluent:CreateWindow({
     Theme = "Dark"
 })
 
-
-local Main = Window:AddTab({
+--Tabs
+local MainTab = Window:AddTab({
     Title = "Main",
     Icon = "home"
 })
+local PlayerTab = Window:AddTab({
+    Title = "Player",
+    Icon = "user"
+  })
+
