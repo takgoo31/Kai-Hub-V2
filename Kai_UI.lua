@@ -22,16 +22,19 @@ Fluent:Notify({
 local DiscordTab = Window:AddTab({
     Title = "Discord",
     Icon = "info"
-})
+  })
 local MainTab = Window:AddTab({
     Title = "Main",
     Icon = "home"
-})
+  })
 local PlayerTab = Window:AddTab({
     Title = "Player",
     Icon = "user"
   })
-local 
+local SettingsTab = Window:AddTab({
+    Title = "Settings",
+    Icon = "settings"
+  })
 
 -- DISCORD TAB
 Tabs.DiscordTab:AddButton({
