@@ -13,29 +13,18 @@ local Window = Fluent:CreateWindow({
     Theme = "Dark"
 })
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local VirtualUser = game:GetService("VirtualUser")
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-
--- Wait for the required objects in the game
-local Remotes = ReplicatedStorage:WaitForChild("Remotes", 9e9)
-local CommF = Remotes:WaitForChild("CommF_", 9e9)
-local Enemies = workspace:WaitForChild("Enemies", 9e9)
-local Boats = workspace:WaitForChild("Boats", 9e9)
-
--- Get player and player data
-local Player = Players.LocalPlayer
-local PlayerLevel = Player:WaitForChild("Data"):WaitForChild("Level")
-
--- Define some example quest variables
-local Quest = {CFrame.new(), CFrame.new(), "", "", 1}
-local QuestTween = {}
-
--- Check for game PlaceIds (seas)
-local Sea1, Sea2, Sea3 = game.PlaceId == 2753915549, game.PlaceId == 4442272183, game.PlaceId == 7449423635
+Fluent:Notify({
+        Title = "Welcome to Kai Hub!",
+        Content = "Thank you for using our script!",
+        SubContent = "https://discord.gg/wDMPK3QAmY", -- Optional
+        Duration = 8 -- Set to nil to make the notification not disappear
+    })
 
 -- TABS --
+local DiscordTab = Window:AddTab({
+    Title = "Discord"
+    Icon = "info"
+})
 local MainTab = Window:AddTab({
     Title = "Main",
     Icon = "home"
@@ -45,3 +34,30 @@ local PlayerTab = Window:AddTab({
     Icon = "user"
   })
 local 
+
+-- DISCORD TAB --
+Tabs.DiscordTab:AddButton({
+        Title = "Kai Hub Community",
+        Description = "Join to our Discord Community!",
+        Callback = function()
+            Window:Dialog({
+                Title = "Kai Hub",
+                Content = "Would you like to copy our server link?",
+                Buttons = {
+                    {
+                        Title = "Copy",
+                        Callback = function()
+                            setclipboard("https://discord.gg/wDMPK3QAmY")
+                        end
+                    },
+                    {
+                        Title = "Cancel",
+                        Callback = function()
+                            print("Cancelled the request.")
+                        end
+                    }
+                }
+            })
+        end
+    })
+
