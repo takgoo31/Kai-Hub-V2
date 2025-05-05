@@ -1,4 +1,5 @@
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/release.lua", true))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 Button_Icon = "rbxassetid://137592432303285"
               
@@ -6,7 +7,7 @@ local Window = Fluent:CreateWindow({
     Title = "Kai Hub | Blox Fruits",
     SubTitle = "by: Kai Team",
     TabWidth = 155,
-    Size = UDim2.fromOffset(570, 440),
+    Size = UDim2.fromOffset(515, 410),
     Acrylic = false,
     Theme = "Dark"
 })
@@ -62,3 +63,17 @@ DiscordTab:AddButton({
         end
     })
 
+
+
+
+
+
+
+
+
+
+
+
+
+-- SETTINGS TAB
+InterfaceManager:BuildInterfaceSection(Tabs.SettingsTab)
