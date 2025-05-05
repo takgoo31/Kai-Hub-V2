@@ -1,9 +1,7 @@
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/release.lua", true))()
 
-
 Button_Icon = "rbxassetid://137592432303285"
               
-
 local Window = Fluent:CreateWindow({
     Title = "Kai Hub | Blox Fruits",
     SubTitle = "by: Kai Team",
@@ -20,7 +18,7 @@ Fluent:Notify({
         Duration = 8 -- Set to nil to make the notification not disappear
     })
 
--- TABS --
+-- TABS
 local DiscordTab = Window:AddTab({
     Title = "Discord"
     Icon = "info"
@@ -35,7 +33,7 @@ local PlayerTab = Window:AddTab({
   })
 local 
 
--- DISCORD TAB --
+-- DISCORD TAB
 Tabs.DiscordTab:AddButton({
         Title = "Kai Hub Community",
         Description = "Join to our Discord Community!",
