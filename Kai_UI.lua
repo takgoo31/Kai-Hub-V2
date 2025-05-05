@@ -5,7 +5,7 @@ Button_Icon = "rbxassetid://137592432303285"
 local Window = Fluent:CreateWindow({
     Title = "Kai Hub | Blox Fruits",
     SubTitle = "by: Kai Team",
-    TabWidth = 160,
+    TabWidth = 150,
     Size = UDim2.fromOffset(400, 340),
     Acrylic = false,
     Theme = "Dark"
@@ -20,7 +20,7 @@ Fluent:Notify({
 
 -- TABS
 local DiscordTab = Window:AddTab({
-    Title = "Discord"
+    Title = "Discord",
     Icon = "info"
 })
 local MainTab = Window:AddTab({
