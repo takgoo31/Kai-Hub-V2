@@ -20,6 +20,9 @@ Fluent:Notify({
     })
 
 -- TABS
+local Tabs = {
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+}
 local DiscordTab = Window:AddTab({
     Title = "Discord",
     Icon = "info"
@@ -76,4 +79,4 @@ DiscordTab:AddButton({
 
 
 -- SETTINGS TAB
-InterfaceManager:BuildInterfaceSection(Tabs.SettingsTab)
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
