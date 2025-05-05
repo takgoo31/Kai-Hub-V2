@@ -37,7 +37,7 @@ local SettingsTab = Window:AddTab({
   })
 
 -- DISCORD TAB
-DiscordTab.DiscordTab:AddButton({
+DiscordTab:AddButton({
         Title = "Kai Hub Community",
         Description = "Join to our Discord Community!",
         Callback = function()
