@@ -5,8 +5,8 @@ Button_Icon = "rbxassetid://137592432303285"
 local Window = Fluent:CreateWindow({
     Title = "Kai Hub | Blox Fruits",
     SubTitle = "by: Kai Team",
-    TabWidth = 165,
-    Size = UDim2.fromOffset(400, 340),
+    TabWidth = 155,
+    Size = UDim2.fromOffset(570, 440),
     Acrylic = false,
     Theme = "Dark"
 })
