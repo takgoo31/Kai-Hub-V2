@@ -12,7 +12,7 @@ local Window = Fluent:CreateWindow({
     Acrylic = false,
     Theme = "Dark"
 })
-repeat task.wait() until game:IsLoaded()
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local VirtualUser = game:GetService("VirtualUser")
 local RunService = game:GetService("RunService")
