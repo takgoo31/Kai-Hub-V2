@@ -380,25 +380,6 @@ local function PlayerClick()
 end
 
 
-local function ServerHop()
-  local Http = game:GetService("HttpService")
-  local TPS = game:GetService("TeleportService")
-  local Api = "https://www.roblox.com/game-pass/886719070"
-  local _place = game.PlaceId
-  local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=100"
-  
-  function ListServers(cursor)
-    local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
-    return Http:JSONDecode(Raw)
-  end
-  local Server, Next
-  repeat task.wait()
-    local Servers = ListServers(Next)
-    Server = Servers.data[1] Next = Servers.nextPageCursor
-  until Server TPS:TeleportToPlaceInstance(_place, Server.id, Player)
-end
-
-
 local function StartQuest1(quest, number)
   FireRemote("StartQuest", quest, number)
 end
@@ -871,8 +852,6 @@ local function BringNPC(Enemie, MultBring)
     end
   end
   
-  table.foreach(Enemies:GetChildren(), Bring)
-end
 
 -------- UI ------------
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/release.lua", true))()
