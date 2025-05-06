@@ -297,6 +297,47 @@ task.spawn(function()
   end
 end)
 
+task.spawn(function()
+  local PortalPos = {}
+  
+  if Sea1 then
+    PortalPos = {
+      Vector3.new(-4652, 873, -1754), -- Sky Island 1
+      Vector3.new(-7895, 5547, -380), -- Sky Island 2
+      Vector3.new(61164, 5, 1820), -- Under Water Island
+      Vector3.new(3865, 5, -1926) -- Under Water Island Entrace
+    }
+  elseif Sea2 then
+    PortalPos = {
+      Vector3.new(-317, 331, 597), -- Flamingo Mansion
+      Vector3.new(2283, 15, 867), -- Flamingo Room
+      Vector3.new(923, 125, 32853), -- Cursed Ship
+      Vector3.new(-6509, 83, -133) -- Zombie Island0
+    }
+  elseif Sea3 then
+    PortalPos = {
+      Vector3.new(-12471, 374, -7551), -- Mansion
+      Vector3.new(5756, 610, -282), -- Hydra Island
+      Vector3.new(-5092, 315, -3130), -- Castle on the Sea
+      Vector3.new(-12001, 332, -8861), -- Floating Turtle
+      Vector3.new(5319, 23, -93), -- Beautiful Pirate
+      Vector3.new(28286, 14897, 103) -- Temple of Time
+    }
+  end
+  
+  function GetTPPos(position)
+    local NearPos = math.huge
+    local TpPos = Vector3.new()
+    
+    table.foreach(PortalPos, function(___, pos)
+      if (pos - position).Magnitude <= NearPos then
+        NearPos = (pos - position).Magnitude
+        TpPos = pos
+      end
+    end)
+    return TpPos
+  end
+end)
 
 function GetBladeHit()
   local CombatFrameworkLib = debug.getupvalues(require(Player.PlayerScripts.CombatFramework))
