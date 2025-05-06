@@ -206,6 +206,10 @@ local BossListT = {
   "Longma"
 }
 
+local function FireRemote(...)
+  return CommF:InvokeServer(...)
+end
+
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/release.lua", true))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
