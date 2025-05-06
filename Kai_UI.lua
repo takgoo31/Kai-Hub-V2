@@ -729,7 +729,7 @@ local function Get_LevelQuest()
     elseif Level >= 1975 and Level < 2000 then
       Quest = {CFrame.new(-9481, 142, 5565), false, "Reborn Skeleton", "HauntedQuest1", 1}
       QuestTween = {CFrame.new(-8680, 190, 5852), CFrame.new(-8879, 190, 5900), CFrame.new(-8865, 190, 6100), CFrame.new(-8774, 170, 6169), CFrame.new(-8649, 190, 6071)}
-    elseif Level >= 200 and Level < 2025 then
+    elseif Level >= 2000 and Level < 2025 then
       Quest = {CFrame.new(-9481, 142, 5565), false, "Living Zombie", "HauntedQuest1", 2}
       QuestTween = {CFrame.new(-10104, 200, 5739), CFrame.new(-10078, 200, 5953), CFrame.new(-10195, 200, 6139), CFrame.new(-10252, 200, 5973)}
     elseif Level >= 2025 and Level < 2050 then
