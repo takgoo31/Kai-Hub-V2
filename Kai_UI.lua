@@ -79,6 +79,132 @@ local function Get_Fruit(Fruit)
     return "Kitsune-Kitsune"
   end
 end
+    
+local function GetBossQuest(BossName)
+  -- Bosses Sea 1
+  if BossName == "The Gorilla King" then
+    return true, CFrame.new(-1128, 6, -451), "JungleQuest"
+  elseif BossName == "Bobby" then
+    return true, CFrame.new(-1131, 14, 4080), "BuggyQuest1"
+  elseif BossName == "Yeti" then
+    return true, CFrame.new(1185, 106, -1518), "SnowQuest"
+  elseif BossName == "Vice Admiral" then
+    return true, CFrame.new(-4807, 21, 4360), "MarineQuest2", 2
+  elseif BossName == "Swan" then
+    return true, CFrame.new(5230, 4, 749), "ImpelQuest"
+  elseif BossName == "Chief Warden" then
+    return true, CFrame.new(5230, 4, 749), "ImpelQuest", 2
+  elseif BossName == "Warden" then
+    return true, CFrame.new(5230, 4, 749), "ImpelQuest", 1
+  elseif BossName == "Magma Admiral" then
+    return true, CFrame.new(-5694, 18, 8735), "MagmaQuest"
+  elseif BossName == "Fishman Lord" then
+    return true, CFrame.new(61350, 31, 1095), "FishmanQuest"
+  elseif BossName == "Wysper" then
+    return true, CFrame.new(-7927, 5551, -637), "SkyExp1Quest"
+  elseif BossName == "Thunder God" then
+    return true, CFrame.new(-7751, 5607, -2315), "SkyExp2Quest"
+  elseif BossName == "Cyborg" then
+    return true, CFrame.new(6138, 10, 3939), "FountainQuest"
+  elseif BossName == "Saber Expert" then
+    return false, CFrame.new(-1461, 30, -51)
+  elseif BossName == "The Saw" then
+    return false, CFrame.new(-690, 15, 1583)
+  elseif BossName == "Greybeard" then
+    return false, CFrame.new(-4807, 21, 4360)
+  -- Bosses Sea 2
+  elseif BossName == "Diamond" then
+    return true, CFrame.new(-1569, 199, -31), "Area1Quest"
+  elseif BossName == "Jeremy" then
+    return true, CFrame.new(2316, 449, 787), "Area2Quest"
+  elseif BossName == "Fajita" then
+    return true, CFrame.new(-2086, 73, -4208), "MarineQuest3"
+  elseif BossName == "Smoke Admiral" then
+    return true, CFrame.new(-5078, 24, -5352), "IceSideQuest"
+  elseif BossName == "Awakened Ice Admiral" then
+    return true, CFrame.new(6473, 297, -6944), "FrostQuest"
+  elseif BossName == "Tide Keeper" then
+    return true, CFrame.new(-3711, 77, -11469), "ForgottenQuest"
+  elseif BossName == "Don Swan" then
+    return false, CFrame.new(2289, 15, 808)
+  elseif BossName == "Cursed Captain" then
+    return false, CFrame.new(912, 186, 33591)
+  elseif BossName == "Darkbeard" then
+    return false, CFrame.new(3695, 13, -3599)
+  -- Bosses Sea 3
+  elseif BossName == "Longma" then
+    return false, CFrame.new(-10218, 333, -9444)
+  elseif BossName == "Stone" then
+    return true, CFrame.new(-1049, 40, 6791), "PiratePortQuest"
+  elseif BossName == "Beautiful Pirate" then
+    return true, CFrame.new(5241, 23, 129), "DeepForestIsland2"
+  elseif BossName == "Island Empress" then
+    return true, CFrame.new(5730, 602, 199), "AmazonQuest2"
+  elseif BossName == "Kilo Admiral" then
+    return true, CFrame.new(2889, 424, -7233), "MarineTreeIsland"
+  elseif BossName == "Captain Elephant" then
+    return true, CFrame.new(-13393, 319, -8423), "DeepForestIsland"
+  elseif BossName == "Cake Queen" then
+    return true, CFrame.new(-710, 382, -11150), "IceCreamIslandQuest"
+  elseif BossName == "Dough King" or BossName == "Cake Prince" then
+    return false, CFrame.new(-2103, 70, -12165)
+  elseif BossName == "rip_indra True Form" then
+    return false, CFrame.new(-5333, 424, -2673)
+  end
+end
+
+local BossListT = {
+  -- Sea 1 --
+  -- Raid Boss
+  "Greybeard",
+  "The Saw",
+  "Saber Expert",
+  
+  -- Normal Boss
+  "The Gorilla King",
+  "Bobby",
+  "Yeti",
+  "Vice Admiral",
+  "Warden",
+  "Chief Warden",
+  "Swan",
+  "Magma Admiral",
+  "Fishman Lord",
+  "Wysper",
+  "Thunder God",
+  "Cyborg",
+  
+  -- Sea 2 --
+  -- Raid Boss
+  "Darkbeard",
+  "Cursed Captain",
+  "Order",
+  "Don Swan",
+  
+  -- Normal Blss
+  "Diamond",
+  "Jeremy",
+  "Fajita",
+  "Smoke Admiral",
+  "Awakened Ice Admiral",
+  "Tide Keeper",
+  
+  -- Sea 3 --
+  -- Raid Boss
+  "Dough King",
+  "Cake Prince",
+  "rip_indra True Form",
+  "Soul Reaper",
+  
+  -- Normal Boss
+  "Stone",
+  "Island Empress",
+  "Kilo Admiral",
+  "Captain Elephant",
+  "Beautiful Pirate",
+  "Cake Queen",
+  "Longma"
+}
 
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/release.lua", true))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
