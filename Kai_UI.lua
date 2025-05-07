@@ -1027,36 +1027,40 @@ DiscordTab:AddButton({
         end
     })
 
-local Section = PlayerTab:AddSection("Movement")
+-- PlayerTab SECTION MAIN
+local PlayerSection = PlayerTab:AddSection("Movement Settings")
 
-local sliderObject
+local WalkSpeedEnabled = false
+local WalkSpeedValue = 16
 
-local walkspeedEnabled = false
-
+-- Toggle for enabling WalkSpeed
 PlayerTab:AddToggle({
     Title = "Enable WalkSpeed",
     Default = false,
     Callback = function(value)
-        walkspeedEnabled = value
-        if not value then
+        WalkSpeedEnabled = value
+        if value then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeedValue
+        else
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
         end
     end
 })
 
+-- Slider for controlling WalkSpeed
 PlayerTab:AddSlider({
     Title = "WalkSpeed",
-    Description = "Adjust your speed",
+    Description = "Adjust WalkSpeed",
     Min = 16,
     Max = 450,
     Default = 16,
     Callback = function(value)
-        if walkspeedEnabled then
+        WalkSpeedValue = value
+        if WalkSpeedEnabled then
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
         end
     end
 })
-
 
 
 
