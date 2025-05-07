@@ -1028,38 +1028,40 @@ DiscordTab:AddButton({
     })
 ------- PLAYER TAB --------
 task.delay(0.1, function()
-    local WalkSpeedEnabled = false
-    local WalkSpeedValue = 16
+-- Create Toggle
+local Toggle = PlayerTab:AddToggle("EnableWalkSpeed", {
+    Title = "Enable WalkSpeed",
+    Default = false
+})
 
-    PlayerTab:AddSection("Movement Settings")
+-- Create Slider
+local Slider = Tabs.Player:AddSlider("WalkSpeedValue", {
+    Title = "WalkSpeed",
+    Description = "Adjust your speed",
+    Default = 16,
+    Min = 16,
+    Max = 450
+})
 
-    PlayerTab:AddToggle({
-        Title = "Enable WalkSpeed",
-        Default = false,
-        Callback = function(value)
-            WalkSpeedEnabled = value
-            if value then
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeedValue
-            else
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-            end
-        end
-    })
-
-    PlayerTab:AddSlider({
-        Title = "WalkSpeed",
-        Description = "Adjust your speed",
-        Min = 16,
-        Max = 450,
-        Default = 16,
-        Callback = function(value)
-            WalkSpeedValue = value
-            if WalkSpeedEnabled then
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
-            end
-        end
-    })
+-- Handle toggle change
+Toggle:OnChanged(function(value)
+    if value then
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Options.WalkSpeedValue.Value
+    else
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    end
 end)
+
+-- Handle slider change
+Slider:OnChanged(function(value)
+    if Options.EnableWalkSpeed.Value then
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+    end
+end)
+
+-- Optional: Set defaults programmatically
+Options.WalkSpeedValue:SetValue(16)
+Options.EnableWalkSpeed:SetValue(false)
 
 
 
@@ -1075,4 +1077,4 @@ end)
 
 
 -- SETTINGS TAB
-InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+InterfaceManager:BuildInterfaceSection(Settings)
