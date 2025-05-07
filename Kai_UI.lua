@@ -1077,16 +1077,15 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
 local SectionFPS = SettingsTab:AddSection("REAL TIME FPS")
 -- Create a paragraph to display the FPS
 local paragraph = SettingsTab:AddParagraph({
-    Text = "FPS: 0", -- Initial text
-    TextSize = 16
+    Title = "FPS",
+    Content = "Calculating..."
 })
 
 -- Function to update FPS
 local function updateFPS()
     local fps = math.floor(1 / game:GetService("RunService").Heartbeat:Wait())
-    paragraph.Text = "FPS: " .. fps
+    paragraph.Content = tostring(fps)
 end
 
 -- Update FPS every frame
 game:GetService("RunService").Heartbeat:Connect(updateFPS)
-
