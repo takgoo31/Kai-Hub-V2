@@ -1027,39 +1027,38 @@ DiscordTab:AddButton({
         end
     })
 ------- PLAYER TAB -------
+local Section = PlayerTab:AddSectuon("Movement Settings")
+-- Add Toggle to your existing tab
 local Toggle = PlayerTab:AddToggle("EnableWalkSpeed", {
     Title = "Enable WalkSpeed",
     Default = false
 })
 
--- Create Slider
+-- Add Slider to the same tab
 local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
     Title = "WalkSpeed",
     Description = "Adjust your speed",
     Default = 16,
     Min = 16,
-    Max = 450
+    Max = 400,
+    Rounding = 0
 })
 
--- Handle toggle change
-Toggle:OnChanged(function(value)
-    if value then
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Options.WalkSpeedValue.Value
-    else
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+-- Toggle logic
+Toggle:OnChanged(function(isEnabled)
+    local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    if humanoid then
+        humanoid.WalkSpeed = isEnabled and Slider.Value or 16
     end
 end)
 
--- Handle slider change
+-- Slider logic
 Slider:OnChanged(function(value)
-    if Options.EnableWalkSpeed.Value then
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+    local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    if humanoid and Toggle.Value then
+        humanoid.WalkSpeed = value
     end
 end)
-
--- Optional: Set defaults programmatically
-Options.WalkSpeedValue:SetValue(16)
-Options.EnableWalkSpeed:SetValue(false)
 
 
 
