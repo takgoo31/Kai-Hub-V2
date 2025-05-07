@@ -1026,16 +1026,14 @@ DiscordTab:AddButton({
             })
         end
     })
-------- PLAYER TAB --------
-task.delay(0.1, function()
--- Create Toggle
+------- PLAYER TAB -------
 local Toggle = PlayerTab:AddToggle("EnableWalkSpeed", {
     Title = "Enable WalkSpeed",
     Default = false
 })
 
 -- Create Slider
-local Slider = Tabs.Player:AddSlider("WalkSpeedValue", {
+local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
     Title = "WalkSpeed",
     Description = "Adjust your speed",
     Default = 16,
