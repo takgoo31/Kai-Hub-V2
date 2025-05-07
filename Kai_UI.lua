@@ -1076,22 +1076,27 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
 -- SETTINGS TAB
 local RunService = game:GetService("RunService")
 
--- Create a Label instead of Paragraph for real-time updates
-local fpsLabel = SettingsTab:AddLabel("FPS: Calculating...")
+-- Create the paragraph once
+local paragraph = SettingsTab:AddParagraph({
+    Title = "FPS",
+    Content = "Calculating..."
+})
 
--- Start FPS update loop
+-- Update loop (once per second to avoid flickering/dupes)
 task.spawn(function()
-	while true do
-		local frameCount = 0
-		local start = os.clock()
-		
-		-- Count frames for 1 second
-		while os.clock() - start < 1 do
-			RunService.RenderStepped:Wait()
-			frameCount += 1
-		end
+    while true do
+        local frames = 0
+        local startTime = os.clock()
 
-		-- Update the label with the FPS value
-		fpsLabel:SetText("FPS: " .. tostring(frameCount))
-	end
+        -- Count frames in 1 second
+        while os.clock() - startTime < 1 do
+            RunService.RenderStepped:Wait()
+            frames += 1
+        end
+
+        -- Manually update Content (some versions support it)
+        if paragraph and paragraph.Content ~= nil then
+            paragraph.Content = tostring(frames)
+        end
+    end
 end)
