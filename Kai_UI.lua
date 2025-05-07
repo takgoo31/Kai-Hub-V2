@@ -1029,6 +1029,7 @@ DiscordTab:AddButton({
 ------- PLAYER TAB -------
 local Section = PlayerTab:AddSection("Movement Settings")
 -- Add Toggle to your existing tab
+-- Add Toggle to your existing tab
 local Toggle = PlayerTab:AddToggle("EnableWalkSpeed", {
     Title = "Enable WalkSpeed",
     Default = false,
@@ -1049,12 +1050,21 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
     Max = 100,
     Rounding = 0,
     Callback = function(value)
-        local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-        if humanoid and Toggle.Value then
-            humanoid.WalkSpeed = value
+        -- Debounce logic: only update WalkSpeed after a short delay
+        if not SliderDebounce then
+            SliderDebounce = true
+            task.delay(0.1, function()
+                -- Only update WalkSpeed when the slider has stopped moving
+                local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+                if humanoid and Toggle.Value then
+                    humanoid.WalkSpeed = value
+                end
+                SliderDebounce = false
+            end)
         end
     end
 })
+
 
 
 
