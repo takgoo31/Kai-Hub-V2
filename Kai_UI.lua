@@ -1026,41 +1026,41 @@ DiscordTab:AddButton({
             })
         end
     })
+------- PLAYER TAB --------
+task.delay(0.1, function()
+    local WalkSpeedEnabled = false
+    local WalkSpeedValue = 16
 
--- PlayerTab SECTION MAIN
-local PlayerSection = PlayerTab:AddSection("Movement Settings")
+    PlayerTab:AddSection("Movement Settings")
 
-local WalkSpeedEnabled = false
-local WalkSpeedValue = 16
-
--- Toggle for enabling WalkSpeed
-PlayerTab:AddToggle({
-    Title = "Enable WalkSpeed",
-    Default = false,
-    Callback = function(value)
-        WalkSpeedEnabled = value
-        if value then
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeedValue
-        else
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    PlayerTab:AddToggle({
+        Title = "Enable WalkSpeed",
+        Default = false,
+        Callback = function(value)
+            WalkSpeedEnabled = value
+            if value then
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeedValue
+            else
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+            end
         end
-    end
-})
+    })
 
--- Slider for controlling WalkSpeed
-PlayerTab:AddSlider({
-    Title = "WalkSpeed",
-    Description = "Adjust WalkSpeed",
-    Min = 16,
-    Max = 450,
-    Default = 16,
-    Callback = function(value)
-        WalkSpeedValue = value
-        if WalkSpeedEnabled then
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+    PlayerTab:AddSlider({
+        Title = "WalkSpeed",
+        Description = "Adjust your speed",
+        Min = 16,
+        Max = 450,
+        Default = 16,
+        Callback = function(value)
+            WalkSpeedValue = value
+            if WalkSpeedEnabled then
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+            end
         end
-    end
-})
+    })
+end)
+
 
 
 
