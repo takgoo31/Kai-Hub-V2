@@ -1078,8 +1078,7 @@ local RunService = game:GetService("RunService")
 
 local paragraph = SettingsTab:AddParagraph({
     Title = "FPS",
-    Content = "Calculating...",
-    TextSize = 16
+    Content = "Calculating..."
 })
 
 task.spawn(function()
@@ -1089,7 +1088,6 @@ task.spawn(function()
         paragraph = SettingsTab:AddParagraph({
             Title = "FPS",
             Content = tostring(fps),
-            TextSize = 16
         })
     end
 end)
