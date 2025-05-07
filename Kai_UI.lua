@@ -1077,26 +1077,27 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
 local RunService = game:GetService("RunService")
 
 -- Create the paragraph once
-local paragraph = SettingsTab:AddParagraph({
-    Title = "FPS",
-    Content = "Calculating..."
-})
+local paragraph
 
--- Update loop (once per second to avoid flickering/dupes)
 task.spawn(function()
     while true do
         local frames = 0
         local startTime = os.clock()
 
-        -- Count frames in 1 second
         while os.clock() - startTime < 1 do
             RunService.RenderStepped:Wait()
             frames += 1
         end
 
-        -- Manually update Content (some versions support it)
-        if paragraph and paragraph.Content ~= nil then
-            paragraph.Content = tostring(frames)
+        -- Safely destroy and recreate paragraph
+        if paragraph then
+            paragraph:Destroy()
         end
+
+        paragraph = SettingsTab:AddParagraph({
+            Title = "FPS",
+            Content = tostring(frames),
+            TextSize = 16
+        })
     end
 end)
