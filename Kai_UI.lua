@@ -1029,7 +1029,6 @@ DiscordTab:AddButton({
 ------- PLAYER TAB -------
 local Section = PlayerTab:AddSection("Movement Settings")
 -- Add Toggle to your existing tab
--- Add Toggle to your existing tab
 local Toggle = PlayerTab:AddToggle("EnableWalkSpeed", {
     Title = "Enable WalkSpeed",
     Default = false,
@@ -1050,17 +1049,9 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
     Max = 100,
     Rounding = 0,
     Callback = function(value)
-        -- Debounce logic: only update WalkSpeed after a short delay
-        if not SliderDebounce then
-            SliderDebounce = true
-            task.delay(0.1, function()
-                -- Only update WalkSpeed when the slider has stopped moving
-                local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-                if humanoid and Toggle.Value then
-                    humanoid.WalkSpeed = value
-                end
-                SliderDebounce = false
-            end)
+        local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+        if humanoid and Toggle.Value then
+            humanoid.WalkSpeed = value
         end
     end
 })
@@ -1080,5 +1071,22 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
 
 
 
+
+
 -- SETTINGS TAB
+local SectionFPS = SettingsTab:AddSection("REAL TIME FPS")
+-- Create a paragraph to display the FPS
+local paragraph = SettingsTab:AddParagraph({
+    Text = "FPS: 0", -- Initial text
+    TextSize = 16
+})
+
+-- Function to update FPS
+local function updateFPS()
+    local fps = math.floor(1 / game:GetService("RunService").Heartbeat:Wait())
+    paragraph.Text = "FPS: " .. fps
+end
+
+-- Update FPS every frame
+game:GetService("RunService").Heartbeat:Connect(updateFPS)
 
