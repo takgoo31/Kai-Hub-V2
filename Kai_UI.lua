@@ -822,6 +822,23 @@ local function Get_LevelQuest()
     end
   end
 end
+
+local function QuestVisible()
+  local QuestActive = Player.PlayerGui.Main.Quest
+  if not QuestActive.Visible then
+    local QuestActive = Player.PlayerGui.Main.Quest
+    QuestActive.Container.QuestTitle.Title.Text = ""
+  end
+  return QuestActive.Visible
+end
+
+local function VerifyQuest(EnemieName)
+  local QuestActive = Player.PlayerGui.Main.Quest
+  local Text1 = QuestActive.Container.QuestTitle.Title.Text:gsub("-", ""):lower()
+  local Text2 = EnemieName:gsub("-", ""):lower()
+  return QuestActive.Visible and Text1:find(Text2)
+end
+
 local function Configure(Farm)
   if Farm == "Level" then
     if VerifyEliteBoss() then return true
