@@ -1031,32 +1031,32 @@ local Section = PlayerTab:AddSection("Movement")
 
 local sliderObject
 
-local toggle = PlayerTab:AddToggle({
+local walkspeedEnabled = false
+
+PlayerTab:AddToggle({
     Title = "Enable WalkSpeed",
     Default = false,
     Callback = function(value)
-        if sliderObject then
-            sliderObject:SetEnabled(value)
-        end
-
+        walkspeedEnabled = value
         if not value then
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
         end
     end
 })
 
-sliderObject = PlayerTab:AddSlider({
+PlayerTab:AddSlider({
     Title = "WalkSpeed",
     Description = "Adjust your speed",
     Min = 16,
     Max = 450,
     Default = 16,
     Callback = function(value)
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+        if walkspeedEnabled then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+        end
     end
 })
 
-sliderObject:SetEnabled(false)
 
 
 
