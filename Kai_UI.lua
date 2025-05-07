@@ -822,7 +822,145 @@ local function Get_LevelQuest()
     end
   end
 end
-  
+local function Configure(Farm)
+  if Farm == "Level" then
+    if VerifyEliteBoss() then return true
+    elseif VerifyRaidPirate() then return true
+    elseif getgenv().TeleportToFruit and FruitFind() then return true
+    elseif getgenv().AutoSecondSea and PlayerLevel.Value >= 700 then return true
+    elseif getgenv().AutoThirdSea and PlayerLevel.Value >= 1500 then return true
+    elseif VerifyNPC("Awakened Ice Admiral") and getgenv().AutoRengoku then return true
+    elseif VerifyNPC("Darkbeard") and getgenv().AutoDarkbeard then return true
+    elseif VerifyNPC("rip_indra True Form") and getgenv().AutoRipIndra then return true
+    elseif VerifyTool("God's Chalice") and getgenv().AutoRipIndra then return true
+    elseif VerifyNPC("Cake Prince") and getgenv().AutoCakePrince then return true
+    elseif VerifyNPC("Dough King") and getgenv().AutoCakePrince then return true
+    elseif VerifyNPC("Don Swan") and getgenv().AutoKillDonSwan then return true
+    elseif VerifyNPC("Soul Reaper") and getgenv().AutoSoulReaper then return true
+    elseif VerifyTool("Hallow Essence") and getgenv().AutoSoulReaper then return true
+    end
+  elseif Farm == "Raid Pirate" then
+    if not VerifyRaidPirate() and getgenv().AutoFarmBone then return true
+    elseif not VerifyRaidPirate() and getgenv().AutoFarm_Level then return true
+    elseif not VerifyRaidPirate() and getgenv().AutoEliteHunter then return true
+    elseif not VerifyRaidPirate() and getgenv().TeleportToFruit then return true
+    end
+  elseif Farm == "All Bosses" then
+    if getgenv().KillAllBosses and VerifyBosses() then
+    end
+  elseif Farm == "Candy" then
+    if VerifyEliteBoss() then return true
+    elseif getgenv().TeleportToFruit and FruitFind() then return true
+    elseif VerifyNPC("rip_indra True Form") and getgenv().AutoRipIndra then return true
+    elseif VerifyTool("God's Chalice") and getgenv().AutoRipIndra then return true
+    elseif VerifyNPC("Cake Prince") and getgenv().AutoCakePrince then return true
+    elseif VerifyNPC("Soul Reaper") and getgenv().AutoSoulReaper then return true
+    elseif VerifyTool("Hallow Essence") and getgenv().AutoSoulReaper then return true
+    end
+  elseif Farm == "Elite Hunter" then
+    if getgenv().TeleportToFruit and FruitFind() then return true
+    elseif VerifyRaidPirate() then return true
+    elseif not VerifyEliteBoss() and getgenv().AutoCandy then return true
+    elseif getgenv().AutoFarm_Level and not VerifyEliteBoss() then return true
+    elseif getgenv().AutoFarmBone and not VerifyEliteBoss() then return true
+    elseif VerifyNPC("rip_indra True Form") and getgenv().AutoRipIndra then return true
+    elseif VerifyNPC("Cake Prince") and getgenv().AutoCakePrince then return true
+    elseif VerifyNPC("Dough King") and getgenv().AutoCakePrince then return true
+    elseif VerifyNPC("Soul Reaper") and getgenv().AutoSoulReaper then return true
+    elseif VerifyTool("Hallow Essence") and getgenv().AutoSoulReaper then return true
+    elseif VerifyTool("God's Chalice") and getgenv().AutoRipIndra then return true
+    end
+  elseif Farm == "Fruit" then
+    if getgenv().AutoSecondSea and PlayerLevel.Value >= 700 then return true
+    elseif VerifyRaidPirate() then return true
+    elseif getgenv().AutoFarmRaid and TimerG.Visible then return true
+    elseif VerifyNPC("Awakened Ice Admiral") and getgenv().AutoRengoku then return true
+    elseif VerifyNPC("Darkbeard") and getgenv().AutoDarkbeard then return true
+    elseif VerifyNPC("Soul Reaper") and getgenv().AutoSoulReaper then return true
+    elseif VerifyTool("Hallow Essence") and getgenv().AutoSoulReaper then return true
+    elseif VerifyNPC("Cake Prince") and getgenv().AutoCakePrince then return true
+    elseif VerifyNPC("Dough King") and getgenv().AutoCakePrince then return true
+    elseif VerifyTool("God's Chalice") and getgenv().AutoRipIndra then return true
+    elseif not FruitFind() then return true
+    end
+  elseif Farm == "Bone" then
+    if getgenv().AutoFarm_Level then return true
+    elseif VerifyRaidPirate() then return true
+    elseif VerifyEliteBoss() then return true
+    elseif VerifyTool("Hallow Essence") and getgenv().AutoSoulReaper then return true
+    elseif VerifyNPC("Soul Reaper") and getgenv().AutoSoulReaper then return true
+    elseif VerifyNPC("rip_indra True Form") and getgenv().AutoRipIndra then return true
+    elseif getgenv().TeleportToFruit and FruitFind() then return true
+    end
+  elseif Farm == "Ectoplasm" then
+    if getgenv().TeleportToFruit and FruitFind() then return true
+    elseif getgenv().AutoCursedCaptain and VerifyNPC("Cursed Captain") then return true
+    end
+  elseif Farm == "Hallow Boss" then
+    if getgenv().AutoFarmBone and not VerifyNPC("Soul Reaper") and not VerifyTool("Hallow Essence") then return true
+    elseif getgenv().AutoRipIndra and VerifyNPC("rip_indra True Form") then
+    end
+  elseif Farm == "Raid" then
+    if getgenv().TeleportToFruit and FruitFind() and not TimerG.Visible then return true
+    end
+  elseif Farm == "Don Swan" then
+    if getgenv().AutoFarm_Level and not VerifyNPC("Don Swan") then return true
+    elseif getgenv().AutoFarmEctoplasm and not VerifyNPC("Don Swan") then return true
+    elseif getgenv().AutoDarkbeard and VerifyNPC("Darkbeard") then return true
+    elseif getgenv().AutoCursedCaptain and VerifyNPC("Cursed Captain") then return true
+    end
+  elseif Farm == "Saw Boss" then
+
+    elseif Farm == "Bartilo Quest" then
+    
+  elseif Farm == "Enel Boss" then
+    
+  elseif Farm == "Cake Prince" then
+    if VerifyEliteBoss() then
+    elseif not VerifyNPC("Cake Prince") and getgenv().TeleportToFruit and FruitFind() then return true
+    elseif not VerifyNPC("Dough King") and getgenv().TeleportToFruit and FruitFind() then return true
+    elseif VerifyNPC("Soul Reaper") and getgenv().AutoSoulReaper then return true
+    elseif VerifyNPC("rip_indra True Form") and getgenv().AutoRipIndra then return true
+    elseif VerifyTool("God's Chalice") and getgenv().AutoRipIndra then return true
+    end
+  elseif Farm == "Rip Indra" then
+    if not VerifyTool("God's Chalice") and not VerifyNPC("rip_indra True Form") and getgenv().AutoFarm_Level then return true
+    elseif not VerifyNPC("rip_indra True Form") and getgenv().RipIndraLegendaryHaki and GetButton() then
+    elseif not VerifyTool("God's Chalice") and not VerifyNPC("rip_indra True Form") and getgenv().AutoEliteHunter then return true
+    elseif not VerifyTool("God's Chalice") and not VerifyNPC("rip_indra True Form") and getgenv().TeleportToFruit then return true
+    elseif not VerifyTool("God's Chalice") and not VerifyNPC("rip_indra True Form") and getgenv().AutoFarmBone then return true
+    elseif not VerifyTool("God's Chalice") and not VerifyNPC("rip_indra True Form") and getgenv().AutoCakePrince then return true
+    elseif not VerifyTool("God's Chalice") and not VerifyNPC("rip_indra True Form") and getgenv().AutoCakePrince then return true
+    end
+  end
+end
+
+local function AutoFarm_Level()
+  while getgenv().AutoFarm_Level do task.wait()
+    if Configure("Level") then
+    else
+      local Enemie = GetEnemies({Quest[3]})QuestVisible()
+      
+      -- if not VerifyQuest(Quest[3]) then FireRemote("AbandonQuest")end
+      if not VerifyQuest(Quest[3]) then
+        StartQuest(Quest[4], Quest[5], Quest[1])
+      elseif Enemie and Enemie:FindFirstChild("HumanoidRootPart") then
+        PlayerTP(Enemie.HumanoidRootPart.CFrame + getgenv().FarmPos)
+        pcall(function()PlayerClick()ActiveHaki()EquipTool()BringNPC(Enemie)end)
+      else
+        local plrPP = Player.Character and Player.Character.PrimaryPart
+        if QuestTween and QuestTween[1] and plrPP and (plrPP.Position - QuestTween[1].p).Magnitude < 1200 then
+          TweenNPCSpawn(QuestTween)
+        elseif Quest[2] then
+          PlayerTP(Quest[2])
+        else
+          PlayerTP(Quest[1])
+        end
+      end
+    end
+  end
+end
+
 -------- UI ------------
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/release.lua", true))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
