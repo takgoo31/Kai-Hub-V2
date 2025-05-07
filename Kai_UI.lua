@@ -1031,7 +1031,7 @@ local Section = PlayerTab:AddSection("Movement")
 
 local sliderObject
 
-local toggle = Section:AddToggle({
+local toggle = PlayerTab:AddToggle({
     Title = "Enable WalkSpeed",
     Default = false,
     Callback = function(value)
@@ -1045,7 +1045,7 @@ local toggle = Section:AddToggle({
     end
 })
 
-sliderObject = Section:AddSlider({
+sliderObject = PlayerTab:AddSlider({
     Title = "WalkSpeed",
     Description = "Adjust your speed",
     Min = 16,
