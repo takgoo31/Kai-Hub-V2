@@ -1075,4 +1075,4 @@ Options.EnableWalkSpeed:SetValue(false)
 
 
 -- SETTINGS TAB
-InterfaceManager:BuildInterfaceSection(Settings)
+
