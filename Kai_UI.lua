@@ -1054,24 +1054,24 @@ local farmToggle = MainTab:AddToggle("EnableAutoFarm", {
         if getgenv().AutoFarm_Level then
             print("Auto Farm is ON")
 
-            -- Start autofarm loop
             task.spawn(function()
                 while getgenv().AutoFarm_Level do
                     local questName = Get_LevelQuest()
+                    print("Detected Level Quest:", questName)
 
                     if questName then
-                        print("Farming Quest:", questName)
-
-                        -- Trigger quest, example with RemoteEvent
                         local questRemote = game.ReplicatedStorage:FindFirstChild("StartQuest")
                         if questRemote and questRemote:IsA("RemoteEvent") then
+                            print("Firing quest:", questName)
                             questRemote:FireServer(questName)
+                        else
+                            warn("StartQuest RemoteEvent not found!")
                         end
                     else
-                        warn("No valid quest for current level.")
+                        warn("No valid quest returned!")
                     end
 
-                    task.wait(3) -- adjust wait time as needed
+                    task.wait(3)
                 end
             end)
         else
@@ -1079,6 +1079,7 @@ local farmToggle = MainTab:AddToggle("EnableAutoFarm", {
         end
     end
 })
+
 
 ------- PLAYER TAB -------
 local Section = PlayerTab:AddSection("Movement Settings")
