@@ -407,6 +407,42 @@ local function PlayerTP(Tween_Pos)
   end
 end
 
+local function BoatTP(Boat, pos)
+  if Boat then
+    local Distance = (Boat.PrimaryPart.Position - pos.p).Magnitude
+    game:GetService("TweenService"):Create(Boat.PrimaryPart,
+    TweenInfo.new(Distance / getgenv().SeaBoatSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out),
+    {CFrame = pos}):Play()
+  end
+end
+
+local function KillAura()
+  local function Kill(_,Enemie)
+    local EnemieH = Enemie:FindFirstChild("Humanoid")
+    
+    if EnemieH and EnemieH.Health > 0 then
+      local PlayerPP = Player.Character and Player.Character.PrimaryPart
+      local EnemiePP = Enemie.PrimaryPart
+      
+      if PlayerPP and EnemiePP and (EnemiePP.Position - PlayerPP.Position).Magnitude < 1500 then
+        EnemieH.Health = 0
+        EnemiePP.Size = Vector3.new(75, 75, 75)
+        EnemiePP.CanCollide = false
+        sethiddenproperty(Player, "SimulationRadius", math.huge)
+      end
+    else
+      local EnemieHead = Enemie:FindFirstChild("Head")
+      
+      if EnemieHead then
+        EnemieHead:Destroy()
+      end
+    end
+  end
+  
+  table.foreach(Enemies:GetChildren(), Kill)
+  table.foreach(ReplicatedStorage:GetChildren(), Kill)
+end
+
 function GetBladeHit()
   local CombatFrameworkLib = debug.getupvalues(require(Player.PlayerScripts.CombatFramework))
   local CmrFwLib = CombatFrameworkLib[2]
