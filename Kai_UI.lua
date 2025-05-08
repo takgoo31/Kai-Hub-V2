@@ -297,6 +297,52 @@ task.spawn(function()
   end
 end)
 
+
+task.spawn(function()
+  repeat task.wait()
+  until Player.Character and Player.Character.PrimaryPart
+  block.CFrame = Player.Character.PrimaryPart.CFrame
+  
+  while task.wait() do
+    pcall(function()
+      if getgenv().OnFarm then
+        if block and block.Parent == workspace then
+          local plrPP = Player.Character and Player.Character.PrimaryPart
+          
+          if plrPP and (plrPP.Position - block.Position).Magnitude <= 200 then
+            plrPP.CFrame = block.CFrame
+          else
+            block.CFrame = plrPP.CFrame
+          end
+        end
+        local plrChar = Player.Character
+        if plrChar then
+          for _,part in pairs(plrChar:GetChildren()) do
+            if part:IsA("BasePart") then
+              part.CanCollide = false
+            end
+          end
+          if plrChar:FindFirstChild("Stun") and plrChar.Stun.Value ~= 0 then
+            plrChar.Stun.Value = 0
+          end
+          if plrChar:FindFirstChild("Busy") and plrChar.Busy.Value then
+            plrChar.Busy.Value = false
+          end
+        end
+      else
+        local plrChar = Player.Character
+        if plrChar then
+          for _,part in pairs(plrChar:GetChildren()) do
+            if part:IsA("BasePart") then
+              part.CanCollide = true
+            end
+          end
+        end
+      end
+    end)
+  end
+end)
+
 task.spawn(function()
   local PortalPos = {}
   
