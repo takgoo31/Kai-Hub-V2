@@ -1043,6 +1043,20 @@ DiscordTab:AddButton({
             })
         end
     })
+------ MAIN TAB -------
+local farmSection = MainTab:AddSection("Main Farm")
+local farmToggle = MainTab:AddToggle("EnableAutoFarm", {
+    Title = "Auto Farm Level",
+    Default = false,
+    Callback = function(value)
+      getgenv().AutoFarm_Level = value
+      if getgenv().AutoFarm_Level then
+        print("Auto Farm is ON")
+      else
+        print("Auto Farm is OFF")
+      end
+    end
+})
 ------- PLAYER TAB -------
 local Section = PlayerTab:AddSection("Movement Settings")
 -- Add Toggle to your existing tab
