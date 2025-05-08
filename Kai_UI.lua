@@ -529,12 +529,6 @@ local function VerifyTableNPCs(npcs)
     end
   end)
   end
-
-  local function RemoveESP(Part)
-  if Part and Part:FindFirstChild("ESP_REDzHUB") then
-    Part.ESP_REDzHUB:Destroy()
-  end
-  end
   
 function GetBladeHit()
   local CombatFrameworkLib = debug.getupvalues(require(Player.PlayerScripts.CombatFramework))
