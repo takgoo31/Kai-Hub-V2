@@ -1048,15 +1048,38 @@ local farmSection = MainTab:AddSection("Main Farm")
 local farmToggle = MainTab:AddToggle("EnableAutoFarm", {
     Title = "Auto Farm Level",
     Default = false,
-    Callback = function(value)
-      getgenv().AutoFarm_Level = value
-      if getgenv().AutoFarm_Level then
-        print("Auto Farm is ON")
-      else
-        print("Auto Farm is OFF")
-      end
+    Callback = function(enabled)
+        getgenv().AutoFarm_Level = enabled
+
+        if getgenv().AutoFarm_Level then
+            print("Auto Farm is ON")
+
+            -- Start autofarm loop
+            task.spawn(function()
+                while getgenv().AutoFarm_Level do
+                    local questName = Get_LevelQuest()
+
+                    if questName then
+                        print("Farming Quest:", questName)
+
+                        -- Trigger quest, example with RemoteEvent
+                        local questRemote = game.ReplicatedStorage:FindFirstChild("StartQuest")
+                        if questRemote and questRemote:IsA("RemoteEvent") then
+                            questRemote:FireServer(questName)
+                        end
+                    else
+                        warn("No valid quest for current level.")
+                    end
+
+                    task.wait(3) -- adjust wait time as needed
+                end
+            end)
+        else
+            print("Auto Farm is OFF")
+        end
     end
 })
+
 ------- PLAYER TAB -------
 local Section = PlayerTab:AddSection("Movement Settings")
 -- Add Toggle to your existing tab
