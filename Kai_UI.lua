@@ -1055,12 +1055,80 @@ local function AutoFarm_Level()
   end
 end
 
-function AutoFarm_Level()
-  while getgenv().AutoFarm_Level do
-    print("Farming...")
-    task.wait(1)
-  end
+local function AutoFarm_Level()
+    while getgenv().AutoFarm_Level do
+        -- Get the current quest based on the player's level
+        local quest = Get_LevelQuest()
+
+        if quest then
+            -- Get the player's character and its HumanoidRootPart
+            local player = game.Players.LocalPlayer
+            local character = player.Character
+            if character then
+                local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    -- Move the player to the quest location
+        character:MoveTo(quest[1])  -- quest[1] is the position (CFrame) of the quest
+
+                    -- Check if the player has reached the quest location
+                    if (humanoidRootPart.Position - quest[1].Position).Magnitude <= 10 then
+                        -- Start the quest once the player is at the quest location
+                        StartQuest(quest)
+                        print("Quest Started: " .. quest[3])  -- Optional: output the quest name for debugging
+                    end
+
+                    -- Automatically attack NPCs or mobs
+                    local npcTarget = FindTarget()  -- This function will find an NPC or mob to attack
+                    if npcTarget then
+                        -- Move to NPC's position
+                        character:MoveTo(npcTarget.Position)
+
+                        -- Attack the NPC (assuming a basic attack function is in place)
+                        AutoAttack(npcTarget)  -- Call the function to auto-attack the NPC
+                    end
+                end
+            end
+        else
+            print("No quest available for this level.")
+        end
+
+        task.wait(1)  -- Adjust the delay for smoother performance if needed
+    end
 end
+
+-- Function to find the closest NPC or mob to the player
+local function FindTarget()
+    local closestTarget = nil
+    local minDistance = math.huge  -- Start with a very large number to ensure the first mob found is closest
+    
+    -- Loop through all NPCs or mobs in the game (replace with your specific NPC/mob name or tags)
+    for _, mob in pairs(workspace:GetChildren()) do
+        if mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then
+            local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - mob.HumanoidRootPart.Position).Magnitude
+            if distance < minDistance then
+                closestTarget = mob
+                minDistance = distance
+            end
+        end
+    end
+
+    return closestTarget
+end
+
+-- Function to auto-attack the given target
+local function AutoAttack(target)
+    if target and target:FindFirstChild("Humanoid") then
+        local humanoid = target.Humanoid
+        if humanoid and humanoid.Health > 0 then
+            -- Simulate the attack (modify as necessary depending on your game)
+            -- You may need to call specific functions or fire events to perform an attack, depending on your game
+            print("Attacking: " .. target.Name)
+            -- Example: Fire an attack event or call a function to damage the target
+            -- For example: FireRemote("Attack", target)
+        end
+    end
+end
+
 -------- UI ------------
 local Fluent = loadstring(Game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/Beta.lua", true))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
