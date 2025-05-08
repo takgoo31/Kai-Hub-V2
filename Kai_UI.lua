@@ -1073,8 +1073,37 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
     end
 })
 
+-- Variables
+local dashEnabled = true
+local dashLength = 50 -- default value
 
+-- Toggle for Dash On/Off
+local Toggle = PlayerTab:AddToggle("EnableDashLength", {
+    Title = "Enable Dash Length",
+    Default = false,
+    Callback = function(value)
+       local humanoid = game.Players.LocalPlayer.Character:SetAttribute("DashLength", Value)
+       if humanoid then
+          humanoid.DashLength = value and Slider.Value or 10
+      end
+    end
+})
 
+-- Slider for Dash Length 
+local Slider = PlayerTab:AddSlider("DashLengthValue", {
+    Title = "Dash Length",
+    Description = "Adjust your Dash Length",
+    Default = 10,
+    Min = 10,
+    Max = 400,
+    Rounding = 0,
+    Callback = function(value)
+      local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+        if humanoid and Toggle.Value then
+            humanoid.DashLength = value
+        end
+    end
+})
 
 
 
@@ -1091,30 +1120,3 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
 
 
 -- SETTINGS TAB
-local RunService = game:GetService("RunService")
-
--- Create the paragraph once
-local paragraph
-
-task.spawn(function()
-    while true do
-        local frames = 0
-        local startTime = os.clock()
-
-        while os.clock() - startTime < 1 do
-            RunService.RenderStepped:Wait()
-            frames += 1
-        end
-
-        -- Safely destroy and recreate paragraph
-        if paragraph then
-            paragraph:Destroy()
-        end
-
-        paragraph = SettingsTab:AddParagraph({
-            Title = "FPS",
-            Content = tostring(frames),
-            TextSize = 16
-        })
-    end
-end)
