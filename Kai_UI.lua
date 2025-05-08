@@ -457,25 +457,6 @@ local function VerifyTableNPCs(npcs)
       end
     end
   end
-
-  local function TweenNPCSpawn(pos, NPC)
-  if pos then
-    repeat task.wait()
-      for _,v in pairs(pos) do
-        if VerifyTableNPCs(NPC) or Enemies:FindFirstChild(NPC or Quest[3]) then
-          break
-        end
-        if block then
-          local tween = game:GetService("TweenService"):Create(block,
-          TweenInfo.new((block.Position - v.p).Magnitude / getgenv().TweenSpeed, Enum.EasingStyle.Linear),
-          {CFrame = v})tween:Play()tween.Completed:Wait()
-        end
-      end
-    until not getgenv().AutoFarm_Level or Enemies:FindFirstChild(NPC or Quest[3])
-    -- or getgenv().TimeToGift < 90
-    return
-  end
-  end
   
 function GetBladeHit()
   local CombatFrameworkLib = debug.getupvalues(require(Player.PlayerScripts.CombatFramework))
