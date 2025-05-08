@@ -1044,40 +1044,22 @@ DiscordTab:AddButton({
         end
     })
 ------ MAIN TAB -------
+MainTab:AddDropdown("Dropdown", {
+  Title = "Farm Tool",
+  Values = {"Melee", "Sword", "Blox Fruit"},
+  Default = 1,
+  Callback = function(Value)
+    getgenv().FarmTool = Value
+  end
+})
+
 local farmSection = MainTab:AddSection("Main Farm")
-local farmToggle = MainTab:AddToggle("EnableAutoFarm", {
-    Title = "Auto Farm Level",
-    Default = false,
-    Callback = function(enabled)
-        getgenv().AutoFarm_Level = enabled
-
-        if getgenv().AutoFarm_Level then
-            print("Auto Farm is ON")
-
-            task.spawn(function()
-                while getgenv().AutoFarm_Level do
-                    local questName = Get_LevelQuest()
-                    print("Detected Level Quest:", questName)
-
-                    if questName then
-                        local questRemote = game.ReplicatedStorage:FindFirstChild("StartQuest")
-                        if questRemote and questRemote:IsA("RemoteEvent") then
-                            print("Firing quest:", questName)
-                            questRemote:FireServer(questName)
-                        else
-                            warn("StartQuest RemoteEvent not found!")
-                        end
-                    else
-                        warn("No valid quest returned!")
-                    end
-
-                    task.wait(3)
-                end
-            end)
-        else
-            print("Auto Farm is OFF")
-        end
-    end
+MainTab:AddToggle("Toggle", {
+  Title = "Auto Farm Level",
+  Callback = function(Value)
+    getgenv().AutoFarm_Level = Value
+    AutoFarm_Level()
+  end
 })
 
 
