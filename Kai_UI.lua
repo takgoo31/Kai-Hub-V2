@@ -1046,19 +1046,28 @@ DiscordTab:AddButton({
 ------- PLAYER TAB -------
 local Section = PlayerTab:AddSection("Movement Settings")
 -- Add Toggle to your existing tab
-local Toggle = PlayerTab:AddToggle("EnableWalkSpeed", {
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Store walk speed state
+local walkSpeedEnabled = false
+local walkSpeedValue = 16
+
+-- Toggle for WalkSpeed
+local walkToggle = PlayerTab:AddToggle("EnableWalkSpeed", {
     Title = "Enable WalkSpeed",
     Default = false,
-    Callback = function(value)
-        local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    Callback = function(enabled)
+        walkSpeedEnabled = enabled
+        local humanoid = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")
         if humanoid then
-            humanoid.WalkSpeed = value and Slider.Value or 16
+            humanoid.WalkSpeed = enabled and walkSpeedValue or 16
         end
     end
 })
 
--- Add Slider to the same tab
-local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
+-- Slider for WalkSpeed
+local walkSlider = PlayerTab:AddSlider("WalkSpeedValue", {
     Title = "WalkSpeed",
     Description = "Adjust your speed",
     Default = 16,
@@ -1066,31 +1075,33 @@ local Slider = PlayerTab:AddSlider("WalkSpeedValue", {
     Max = 100,
     Rounding = 0,
     Callback = function(value)
-        local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-        if humanoid and Toggle.Value then
+        walkSpeedValue = value
+        local humanoid = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")
+        if humanoid and walkSpeedEnabled then
             humanoid.WalkSpeed = value
         end
     end
 })
 
--- Variables
-local dashEnabled = true
-local dashLength = 50 -- default value
+-- Dash Length Variables
+local dashEnabled = false
+local dashLengthValue = 10
 
--- Toggle for Dash On/Off
-local Toggle = PlayerTab:AddToggle("EnableDashLength", {
+-- Toggle for Dash Length
+local dashToggle = PlayerTab:AddToggle("EnableDashLength", {
     Title = "Enable Dash Length",
     Default = false,
-    Callback = function(value)
-       local humanoid = game.Players.LocalPlayer.Character:SetAttribute("DashLength", Value)
-       if humanoid then
-          humanoid.DashLength = value and Slider.Value or 10
-      end
+    Callback = function(enabled)
+        dashEnabled = enabled
+        local char = LocalPlayer.Character
+        if char then
+            char:SetAttribute("DashLength", enabled and dashLengthValue or 10)
+        end
     end
 })
 
--- Slider for Dash Length 
-local Slider = PlayerTab:AddSlider("DashLengthValue", {
+-- Slider for Dash Length
+local dashSlider = PlayerTab:AddSlider("DashLengthValue", {
     Title = "Dash Length",
     Description = "Adjust your Dash Length",
     Default = 10,
@@ -1098,9 +1109,46 @@ local Slider = PlayerTab:AddSlider("DashLengthValue", {
     Max = 400,
     Rounding = 0,
     Callback = function(value)
-      local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-        if humanoid and Toggle.Value then
-            humanoid.DashLength = value
+        dashLengthValue = value
+        local char = LocalPlayer.Character
+        if char and dashEnabled then
+            char:SetAttribute("DashLength", value)
+        end
+    end
+})
+
+-- Jump Height state
+local jumpEnabled = false
+local jumpHeightValue = 50
+
+-- Toggle for Jump Height
+local jumpToggle = PlayerTab:AddToggle("EnableJumpHeight", {
+    Title = "Enable Jump Height",
+    Default = false,
+    Callback = function(enabled)
+        jumpEnabled = enabled
+        local humanoid = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")
+        if humanoid then
+            humanoid.UseJumpPower = true
+            humanoid.JumpPower = enabled and jumpHeightValue or 50
+        end
+    end
+})
+
+-- Slider for Jump Height
+local jumpSlider = PlayerTab:AddSlider("JumpHeightValue", {
+    Title = "Jump Height",
+    Description = "Adjust your jump height",
+    Default = 50,
+    Min = 50,
+    Max = 350,
+    Rounding = 0,
+    Callback = function(value)
+        jumpHeightValue = value
+        local humanoid = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")
+        if humanoid and jumpEnabled then
+            humanoid.UseJumpPower = true
+            humanoid.JumpPower = value
         end
     end
 })
