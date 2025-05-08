@@ -415,48 +415,6 @@ local function BoatTP(Boat, pos)
     {CFrame = pos}):Play()
   end
 end
-
-local function KillAura()
-  local function Kill(_,Enemie)
-    local EnemieH = Enemie:FindFirstChild("Humanoid")
-    
-    if EnemieH and EnemieH.Health > 0 then
-      local PlayerPP = Player.Character and Player.Character.PrimaryPart
-      local EnemiePP = Enemie.PrimaryPart
-      
-      if PlayerPP and EnemiePP and (EnemiePP.Position - PlayerPP.Position).Magnitude < 1500 then
-        EnemieH.Health = 0
-        EnemiePP.Size = Vector3.new(75, 75, 75)
-        EnemiePP.CanCollide = false
-        sethiddenproperty(Player, "SimulationRadius", math.huge)
-      end
-    else
-      local EnemieHead = Enemie:FindFirstChild("Head")
-      
-      if EnemieHead then
-        EnemieHead:Destroy()
-      end
-    end
-  end
-  
-  table.foreach(Enemies:GetChildren(), Kill)
-  table.foreach(ReplicatedStorage:GetChildren(), Kill)
-end
-
-local function AutoKillAura()
-  while getgenv().AutoKillAura do task.wait()
-    KillAura()
-  end
-end
-
-local function VerifyTableNPCs(npcs)
-  if typeof(npcs) == "table" then
-    for _,npc in pairs(Enemies:GetChildren()) do
-      if table.find(npcs, npc.Name) then
-        return true
-      end
-    end
-  end
   
 function GetBladeHit()
   local CombatFrameworkLib = debug.getupvalues(require(Player.PlayerScripts.CombatFramework))
