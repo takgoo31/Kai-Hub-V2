@@ -385,6 +385,28 @@ task.spawn(function()
   end
 end)
 
+local function PlayerTP(Tween_Pos)
+  TeleportPos = Tween_Pos.p
+  local plrPP = Player.Character and Player.Character.PrimaryPart
+  if not plrPP then return end
+  local Distance = (plrPP.Position - Tween_Pos.p).Magnitude
+  local PortalPos = GetTPPos(Tween_Pos.p)
+  if (plrPP.Position - Tween_Pos.p).Magnitude > (Tween_Pos.p - PortalPos).Magnitude + 250 then
+    plrPP.CFrame = CFrame.new(PortalPos)
+    block.CFrame = CFrame.new(PortalPos)
+  elseif block then
+    if Distance <= 450 then
+      local tween = game:GetService("TweenService"):Create(block,
+      TweenInfo.new(Distance / tonumber(getgenv().TweenSpeed * 1.8), Enum.EasingStyle.Linear),
+      {CFrame = Tween_Pos}):Play()
+    else
+      local tween = game:GetService("TweenService"):Create(block,
+      TweenInfo.new(Distance / getgenv().TweenSpeed, Enum.EasingStyle.Linear),
+      {CFrame = Tween_Pos}):Play()
+    end
+  end
+end
+
 function GetBladeHit()
   local CombatFrameworkLib = debug.getupvalues(require(Player.PlayerScripts.CombatFramework))
   local CmrFwLib = CombatFrameworkLib[2]
