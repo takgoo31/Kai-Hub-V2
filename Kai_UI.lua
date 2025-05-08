@@ -1055,6 +1055,12 @@ local function AutoFarm_Level()
   end
 end
 
+function AutoFarm_Level()
+  while getgenv().AutoFarm_Level do
+    print("Farming...")
+    task.wait(1)
+  end
+end
 -------- UI ------------
 local Fluent = loadstring(Game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/Beta.lua", true))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -1091,7 +1097,7 @@ local PlayerTab = Window:AddTab({
     Icon = "user"
   })
 local SettingsTab = Window:AddTab({
-    Title = "Settings",
+    Title = "Misc",
     Icon = "settings"
   })
 
@@ -1135,10 +1141,11 @@ MainTab:AddToggle("Toggle", {
   Title = "Auto Farm Level",
   Callback = function(Value)
     getgenv().AutoFarm_Level = Value
-    AutoFarm_Level()
-  end
-})
-
+    if Value then  -- Use 'Value' instead of 'enabled'
+      AutoFarm_Level()  -- Call the AutoFarm_Level function
+    end  -- End the if statement
+  end  -- End the Callback function
+})  -- End the AddToggle function
 
 ------- PLAYER TAB -------
 local Section = PlayerTab:AddSection("Movement Settings")
