@@ -476,6 +476,65 @@ local function VerifyTableNPCs(npcs)
     return
   end
   end
+
+  local function AddESP(Part, ESPColor)
+  if Part and Part:FindFirstChild("ESP_FishHUB") then
+    return
+  end
+  
+  local Folder = Instance.new("Folder", Part)
+  Folder.Name = "ESP_REDzHUB"
+  
+  local BHA = Instance.new("BoxHandleAdornment", Folder)
+  BHA.Size = Vector3.new(1, 0, 1, 0)
+  BHA.Name = "ESP_REDzHUB"
+  BHA.AlwaysOnTop = true
+  BHA.ZIndex = 10
+  BHA.Transparency = 0
+
+    local BBG = Instance.new("BillboardGui", BHA)
+  BBG.Adornee = Part
+  BBG.Size = UDim2.new(0, 100, 0, 150)
+  BBG.StudsOffset = Vector3.new(0, 1, 0)
+  BBG.AlwaysOnTop = true
+  
+  local TL = Instance.new("TextLabel", BBG)
+  TL.BackgroundTransparency = 1
+  TL.Position = UDim2.new(0, 0, 0, -50)
+  TL.Size = UDim2.new(0, 100, 0, 100)
+  TL.TextSize = 10
+  TL.TextColor3 = Color3.new(1, 1, 1)
+  TL.TextStrokeTransparency = 0
+  TL.TextYAlignment = Enum.TextYAlignment.Bottom
+  TL.Text = "..."
+  TL.ZIndex = 15
+  TL.TextColor3 = ESPColor or Color3.fromRGB(255, 255, 0)
+
+    task.spawn(function()
+    while task.wait() do
+      pcall(function()
+        local plrRP = Player.Character:FindFirstChild("HumanoidRootPart")
+        if plrRP and Part and Part.Name == "HumanoidRootPart" and Part.Parent:FindFirstChild("Humanoid") then
+          local distance = math.floor((plrRP.Position - Part.Position).Magnitude / 3)
+          local Health = math.floor(Part.Parent.Humanoid.Health)
+          TL.Text = "Name : " .. Part.Parent.Name .. " | HP : " .. tostring(Health).. " | MAG : " .. tostring(distance)
+        elseif plrRP and Part and Part.Name == "Handle" then
+          local distance = math.floor((plrRP.Position - Part.Position).Magnitude / 3)
+          TL.Text = Part.Parent.Name .. " <" .. tostring(distance) .. ">"
+        elseif plrRP and Part then
+          local distance = math.floor((plrRP.Position - Part.Position).Magnitude / 3)
+          TL.Text = Part.Name .. " <" .. tostring(distance) .. ">"
+        end
+      end)
+    end
+  end)
+  end
+
+  local function RemoveESP(Part)
+  if Part and Part:FindFirstChild("ESP_REDzHUB") then
+    Part.ESP_REDzHUB:Destroy()
+  end
+  end
   
 function GetBladeHit()
   local CombatFrameworkLib = debug.getupvalues(require(Player.PlayerScripts.CombatFramework))
