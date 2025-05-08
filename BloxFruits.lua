@@ -10,35 +10,72 @@ local Window = Fluent:CreateWindow({
 
 local AFKOptions = {}
 
-local Discord = Window:MakeTab({"Discord", "Info"})
+local Discord = Window:CreateTab({
+Title = "Discord",
+Icon = "info"
+})
+-- Discord Invite Setup
 Discord:AddDiscordInvite({
-  Name = "Luxury Hub | V2",
+  Title = "Kai Hub | V2",
   Description = "Join our discord community to receive information about the next update",
   Logo = "rbxassetid://15298567397",
-  Invite = "https://discord.gg/luxuryhub"
+  Invite = "https://discord.gg/"
 })
-local MainFarm = Window:CreateTab({"Farm", "home"})
+
+-- Main Farm Tab
+local MainFarm = Window:AddTab({
+  Title = "Farm",
+  Icon = "home" -- Add an icon if necessary
+})
+
 if Sea3 then
-  local AutoSea = Window:CreateTab({"Sea", "waves"})
-  AutoSea:AddSection({"Kitsune"})
-  local KILabel = AutoSea:AddParagraph({"Kitsune Island : not spawn"})
-  AutoSea:AddToggle({Title = "Auto Kitsune Island", Callback = function(Value)
-    getgenv().AutoKitsuneIsland = Value;AutoKitsuneIsland()
-  end})
-  AutoSea:AddToggle({Name = "Auto Trade Azure Ember",Callback = function(Value)
-    getgenv().TradeAzureEmber = Value
-    task.spawn(function()
-      local Modules = ReplicatedStorage:WaitForChild("Modules", 9e9)
-      local Net = Modules:WaitForChild("Net", 9e9)
-      local KitsuneRemote = Net:WaitForChild("RF/KitsuneStatuePray", 9e9)
-      
-      while getgenv().TradeAzureEmber do task.wait(1)
-        KitsuneRemote:InvokeServer()
-      end
-    end)
-  end})
+  -- Sea Tab
+  local AutoSea = Window:AddTab({
+    Title = "Sea",
+    Icon = "waves"
+  })
+
+  -- Kitsune Island Section
+  AutoSea:AddSection({
+    Title = "Kitsune"
+  })
+  
+  local KILabel = AutoSea:AddParagraph({
+    Title = "Kitsune Island: Not Spawned"
+  })
+
+  -- Auto Kitsune Island Toggle
+  AutoSea:AddToggle({
+    Title = "Auto Kitsune Island",
+    Callback = function(Value)
+      getgenv().AutoKitsuneIsland = Value
+      AutoKitsuneIsland()  -- Your existing function to handle the AutoKitsuneIsland behavior
+    end
+  })
+  
+  -- Auto Trade Azure Ember Toggle
+  AutoSea:AddToggle({
+    Title = "Auto Trade Azure Ember",
+    Callback = function(Value)
+      getgenv().TradeAzureEmber = Value
+      task.spawn(function()
+        local Modules = ReplicatedStorage:WaitForChild("Modules", 9e9)
+        local Net = Modules:WaitForChild("Net", 9e9)
+        local KitsuneRemote = Net:WaitForChild("RF/KitsuneStatuePray", 9e9)
+
+        while getgenv().TradeAzureEmber do
+          task.wait(1)
+          KitsuneRemote:InvokeServer()
+        end
+      end)
+    end
+  })
+
+  -- Distance calculation and Kitsune Island check
   task.spawn(function()
     local Map = workspace:WaitForChild("Map", 9e9)
+
+    -- Distance update
     task.spawn(function()
       while task.wait() do
         if Map:FindFirstChild("KitsuneIsland") then
@@ -49,36 +86,65 @@ if Sea3 then
         end
       end
     end)
-    
+
+    -- Update Kitsune Island status on UI
     while task.wait() do
       if Map:FindFirstChild("KitsuneIsland") then
-        KILabel:SetTitle("Kitsune Island : Spawned | Distance : " .. Distance)
+        KILabel:SetTitle("Kitsune Island: Spawned | Distance: " .. Distance)
       else
-        KILabel:SetTitle("Kitsune Island : not Spawn")
+        KILabel:SetTitle("Kitsune Island: Not Spawned")
       end
     end
   end)
-  AutoSea:AddSection({"Sea"})
-  AutoSea:AddToggle({Name = "Auto Farm Sea",Callback = function(Value)
-    getgenv().AutoFarmSea = Value;AutoFarmSea()
-  end})
-  AutoSea:AddButton({Name = "Buy New Boat",Callback = function()
-    BuyNewBoat()
-  end})
-  AutoSea:AddSection({"Material"})
-  AutoSea:AddToggle({"Auto Wood Planks", false, function(Value)
-    getgenv().AutoWoodPlanks = Value
-    task.spawn(function()
-      local Map = workspace:WaitForChild("Map", 9e9)
-      local BoatCastle = Map:WaitForChild("Boat Castle", 9e9)
-      
-      local function TreeModel()
-        for _,Model in pairs(BoatCastle["IslandModel"]:GetChildren()) do
-          if Model.Name == "Model" and Model:FindFirstChild("Tree") then
-            return Model
+
+  -- Sea Section
+  AutoSea:AddSection({
+    Title = "Sea"
+  })
+  
+  -- Auto Farm Sea Toggle
+  AutoSea:AddToggle({
+    Title = "Auto Farm Sea",
+    Callback = function(Value)
+      getgenv().AutoFarmSea = Value
+      AutoFarmSea()  -- Your existing AutoFarmSea function
+    end
+  })
+
+  -- Buy New Boat Button
+  AutoSea:AddButton({
+    Title = "Buy New Boat",
+    Callback = function()
+      BuyNewBoat()  -- Your BuyNewBoat function
+    end
+  })
+
+  -- Material Section
+  AutoSea:AddSection({
+    Title = "Material"
+  })
+
+  -- Auto Wood Planks Toggle
+  AutoSea:AddToggle({
+    Title = "Auto Wood Planks",
+    Default = false,
+    Callback = function(Value)
+      getgenv().AutoWoodPlanks = Value
+      task.spawn(function()
+        local Map = workspace:WaitForChild("Map", 9e9)
+        local BoatCastle = Map:WaitForChild("Boat Castle", 9e9)
+
+        local function TreeModel()
+          for _, Model in pairs(BoatCastle["IslandModel"]:GetChildren()) do
+            if Model.Name == "Model" and Model:FindFirstChild("Tree") then
+              return Model
+            end
           end
         end
-      end
+      end)
+    end
+  })
+end
       
       local function GetTree()
         local Tree = TreeModel()
