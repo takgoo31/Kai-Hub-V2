@@ -1,8 +1,11 @@
 local Fluent = loadstring(Game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/Beta.lua", true))()
-local Window = Fluent:MakeWindow({
-  Title = "Windy Kerensky Hub: Blox Fruits",
-  SubTitle = "by Windy",
-  SaveFolder = "windy Kerenza| Blox Fruits.lua"
+local Window = Fluent:CreateWindow({
+    Title = "Kai Hub | Blox Fruits ",
+    SubTitle = "by: Kai Team",
+    TabWidth = 155,
+    Size = UDim2.fromOffset(520, 390),
+    Acrylic = false,
+    Theme = "Dark"
 })
 
 local AFKOptions = {}
