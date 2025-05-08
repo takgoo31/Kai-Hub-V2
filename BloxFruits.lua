@@ -17,12 +17,12 @@ Discord:AddDiscordInvite({
   Logo = "rbxassetid://15298567397",
   Invite = "https://discord.gg/luxuryhub"
 })
-local MainFarm = Window:MakeTab({"Farm", "Home"})
+local MainFarm = Window:CreateTab({"Farm", "home"})
 if Sea3 then
-  local AutoSea = Window:MakeTab({"Sea", "Waves"})
+  local AutoSea = Window:CreateTab({"Sea", "waves"})
   AutoSea:AddSection({"Kitsune"})
   local KILabel = AutoSea:AddParagraph({"Kitsune Island : not spawn"})
-  AutoSea:AddToggle({Name = "Auto Kitsune Island",Callback = function(Value)
+  AutoSea:AddToggle({Title = "Auto Kitsune Island", Callback = function(Value)
     getgenv().AutoKitsuneIsland = Value;AutoKitsuneIsland()
   end})
   AutoSea:AddToggle({Name = "Auto Trade Azure Ember",Callback = function(Value)
