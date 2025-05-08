@@ -1,5 +1,5 @@
-local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV5/main/Source.Lua"))()
-local Window = redzlib:MakeWindow({
+local Fluent = loadstring(Game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/Beta.lua", true))()
+local Window = Fluent:MakeWindow({
   Title = "Windy Kerensky Hub: Blox Fruits",
   SubTitle = "by Windy",
   SaveFolder = "windy Kerenza| Blox Fruits.lua"
